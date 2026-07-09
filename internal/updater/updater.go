@@ -10,8 +10,8 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/iniwex5/vohive/internal/global"
-	"github.com/iniwex5/vohive/pkg/logger"
+	"github.com/1239t/vohive/internal/global"
+	"github.com/1239t/vohive/pkg/logger"
 	"github.com/minio/selfupdate"
 	"golang.org/x/mod/semver"
 )

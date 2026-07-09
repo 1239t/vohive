@@ -5,7 +5,7 @@ import (
 	"encoding/hex"
 	"strings"
 
-	"github.com/iniwex5/vohive/internal/modem"
+	"github.com/1239t/vohive/internal/modem"
 )
 
 // SIM EF file identifiers (3GPP TS 31.102 / 51.011).

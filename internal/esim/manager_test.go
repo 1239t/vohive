@@ -21,7 +21,7 @@ import (
 	"github.com/damonto/euicc-go/lpa"
 	sgp22 "github.com/damonto/euicc-go/v2"
 	qmiq "github.com/iniwex5/quectel-qmi-go/pkg/qmi"
-	"github.com/iniwex5/vohive/internal/backend"
+	"github.com/1239t/vohive/internal/backend"
 	"golang.org/x/sync/singleflight"
 )
 
@@ -2075,11 +2075,11 @@ func TestResolveDownloadIMEIUsesExplicitCustomIMEIBeforeProviders(t *testing.T) 
 		return "", nil
 	}
 
-	imei, err := mgr.resolveDownloadIMEI(context.Background(), "350225641234561")
+	imei, err := mgr.resolveDownloadIMEI(context.Background(), "359000000000002")
 	if err != nil {
 		t.Fatalf("resolveDownloadIMEI() error=%v", err)
 	}
-	if imei != "350225641234561" {
+	if imei != "359000000000002" {
 		t.Fatalf("imei=%q want explicit custom IMEI", imei)
 	}
 }
@@ -2090,7 +2090,7 @@ func TestResolveDownloadIMEIRejectsInvalidExplicitCustomIMEI(t *testing.T) {
 		return nil, nil
 	}, nil, nil, nil)
 
-	_, err := mgr.resolveDownloadIMEI(context.Background(), "350225641234560")
+	_, err := mgr.resolveDownloadIMEI(context.Background(), "359000000000003")
 	if err == nil {
 		t.Fatal("resolveDownloadIMEI() error=nil, want invalid IMEI error")
 	}

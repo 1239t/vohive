@@ -6,9 +6,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/iniwex5/vohive/pkg/logger"
-	"github.com/iniwex5/vowifi-go/engine/swu"
-	"github.com/iniwex5/vowifi-go/runtimehost"
+	"github.com/1239t/vohive/pkg/logger"
+	"github.com/1239t/vowifi-go/engine/swu"
+	"github.com/1239t/vowifi-go/runtimehost"
 )
 
 const lifecycleReadyTimeout = 3 * time.Second

@@ -5,9 +5,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/iniwex5/vohive/internal/config"
-	"github.com/iniwex5/vohive/internal/device"
-	"github.com/iniwex5/vohive/pkg/logger"
+	"github.com/1239t/vohive/internal/config"
+	"github.com/1239t/vohive/internal/device"
+	"github.com/1239t/vohive/pkg/logger"
 )
 
 // Manager 统一通知管理器

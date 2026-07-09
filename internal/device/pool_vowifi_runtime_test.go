@@ -7,8 +7,8 @@ import (
 	"time"
 
 	qmimanager "github.com/iniwex5/quectel-qmi-go/pkg/manager"
-	"github.com/iniwex5/vohive/internal/backend"
-	"github.com/iniwex5/vohive/internal/config"
+	"github.com/1239t/vohive/internal/backend"
+	"github.com/1239t/vohive/internal/config"
 )
 
 type mockReadinessBackend struct {

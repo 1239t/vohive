@@ -8,7 +8,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/iniwex5/vohive/pkg/mbim"
+	"github.com/1239t/vohive/pkg/mbim"
 )
 
 func TestOnRecoveryExhaustedDispatch(t *testing.T) {

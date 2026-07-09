@@ -8,10 +8,10 @@ import (
 
 	"github.com/iniwex5/quectel-qmi-go/pkg/qmi"
 	qmimanager "github.com/iniwex5/quectel-qmi-go/pkg/manager"
-	qmipkg "github.com/iniwex5/vohive/internal/qmi"
-	"github.com/iniwex5/vohive/internal/backend"
-	"github.com/iniwex5/vohive/internal/config"
-	"github.com/iniwex5/vohive/pkg/logger"
+	qmipkg "github.com/1239t/vohive/internal/qmi"
+	"github.com/1239t/vohive/internal/backend"
+	"github.com/1239t/vohive/internal/config"
+	"github.com/1239t/vohive/pkg/logger"
 )
 
 var (

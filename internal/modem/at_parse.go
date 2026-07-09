@@ -5,7 +5,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/iniwex5/vohive/pkg/smscodec"
+	"github.com/1239t/vohive/pkg/smscodec"
 )
 
 func splitLines(resp string) []string {

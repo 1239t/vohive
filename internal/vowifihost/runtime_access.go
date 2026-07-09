@@ -3,7 +3,7 @@ package vowifihost
 import (
 	"strings"
 
-	"github.com/iniwex5/vowifi-go/runtimehost"
+	"github.com/1239t/vowifi-go/runtimehost"
 )
 
 func (m *Manager) Instance(deviceID string) *runtimehost.Instance {

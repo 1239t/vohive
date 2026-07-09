@@ -1,6 +1,6 @@
 package device
 
-import "github.com/iniwex5/vohive/internal/vowifihost"
+import "github.com/1239t/vohive/internal/vowifihost"
 
 func (p *Pool) voWiFiHost() *vowifihost.Manager {
 	if p == nil {

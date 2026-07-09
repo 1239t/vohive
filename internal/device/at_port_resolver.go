@@ -4,7 +4,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/iniwex5/vohive/internal/modem"
+	"github.com/1239t/vohive/internal/modem"
 )
 
 // probeIMEICachedFn 允许测试替换底层 IMEI 探测实现。

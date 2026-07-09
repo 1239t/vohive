@@ -9,8 +9,8 @@ import (
 
 	qmimanager "github.com/iniwex5/quectel-qmi-go/pkg/manager"
 	"github.com/iniwex5/quectel-qmi-go/pkg/qmi"
-	"github.com/iniwex5/vohive/internal/backend"
-	"github.com/iniwex5/vohive/internal/config"
+	"github.com/1239t/vohive/internal/backend"
+	"github.com/1239t/vohive/internal/config"
 )
 
 func TestPostSwitchDecisionTransportFatalWaitsForControl(t *testing.T) {
@@ -69,7 +69,7 @@ func TestPostSwitchDecisionOldICCIDWaitsIdentity(t *testing.T) {
 		SIMStatus:      qmi.SIMReady,
 		Reason:         qmimanager.UIMReadinessReady,
 		ICCID:          "8964240002094346553",
-		IMSI:           "530240209434655",
+		IMSI:           "530990000000001",
 	}
 
 	got := classifyPostSwitchReadiness(r, "8985203103011907194")

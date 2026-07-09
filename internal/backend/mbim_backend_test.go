@@ -7,8 +7,8 @@ import (
 	"time"
 
 	qmimanager "github.com/iniwex5/quectel-qmi-go/pkg/manager"
-	"github.com/iniwex5/vohive/pkg/mbim"
-	"github.com/iniwex5/vohive/pkg/smscodec"
+	"github.com/1239t/vohive/pkg/mbim"
+	"github.com/1239t/vohive/pkg/smscodec"
 	"github.com/warthog618/sms/encoding/tpdu"
 )
 
@@ -106,7 +106,7 @@ func (f *fakeMBIMSource) UIMPowerOnSIM(context.Context, uint8) error {
 // 原运营商应取 HomeProvider 的 PLMN(MNC 长度正确,3 位 → 6 位),而不是 IMSI 截 2 位。
 func TestMBIMBackendGetNativeMCCMNCUsesHomeProviderLength(t *testing.T) {
 	src := &fakeMBIMSource{
-		sub:          mbim.SubscriberReady{IMSI: "310840131414639"}, // IMSI[3:5]="84"(错)
+		sub:          mbim.SubscriberReady{IMSI: "310990000000003"}, // IMSI[3:5]="84"(错)
 		homeProvider: mbim.Provider{PLMN: "310840"},                 // 正确 3 位 MNC
 	}
 	b := NewMBIMBackend("", src)
@@ -124,7 +124,7 @@ func TestMBIMBackendGetNativeMCCMNCUsesHomeProviderLength(t *testing.T) {
 // 仍应靠 IMSI+MCC 表得到正确的 3 位 MNC(310→280),而不是截成 2 位。
 func TestMBIMBackendGetNativeMCCMNCUsesMCCTableWhenNoHomeProviderNoEFAD(t *testing.T) {
 	src := &fakeMBIMSource{
-		sub:             mbim.SubscriberReady{IMSI: "310280233688494"},
+		sub:             mbim.SubscriberReady{IMSI: "310990000000002"},
 		homeProviderErr: fmt.Errorf("home provider unavailable"),
 		efFn:            func(uint16) ([]byte, error) { return nil, fmt.Errorf("UICC_OPEN_CHANNEL status=0x87430002") },
 	}
@@ -278,31 +278,31 @@ type liveIdentityReader interface {
 
 func TestMBIMBackendLiveIdentity(t *testing.T) {
 	src := &fakeMBIMSource{
-		sub: mbim.SubscriberReady{ReadyState: 1, IMSI: "310840131414639", ICCID: "89103000000589140892"},
+		sub: mbim.SubscriberReady{ReadyState: 1, IMSI: "310990000000003", ICCID: "89000000000000000001"},
 	}
 	var b any = NewMBIMBackend("", src)
 	reader, ok := b.(liveIdentityReader)
 	if !ok {
 		t.Fatal("MBIMBackend 未实现 live 身份接口（会导致面板 ICCID/IMSI 为空）")
 	}
-	if iccid, _ := reader.GetICCIDLive(context.Background()); iccid != "89103000000589140892" {
+	if iccid, _ := reader.GetICCIDLive(context.Background()); iccid != "89000000000000000001" {
 		t.Fatalf("GetICCIDLive = %q", iccid)
 	}
-	if imsi, _ := reader.GetIMSILive(context.Background()); imsi != "310840131414639" {
+	if imsi, _ := reader.GetIMSILive(context.Background()); imsi != "310990000000003" {
 		t.Fatalf("GetIMSILive = %q", imsi)
 	}
 }
 
 func TestMBIMBackendIdentity(t *testing.T) {
 	src := &fakeMBIMSource{
-		caps: mbim.Caps{DeviceID: "356938035643809"},
+		caps: mbim.Caps{DeviceID: "359000000000001"},
 		sub:  mbim.SubscriberReady{ReadyState: 1, IMSI: "460001234567890", ICCID: "8986001234", MSISDN: "13800138000"},
 	}
 	b := NewMBIMBackend("", src)
 	if b.Mode() != BackendMBIM {
 		t.Fatalf("Mode = %q", b.Mode())
 	}
-	if imei, _ := b.GetIMEI(context.Background()); imei != "356938035643809" {
+	if imei, _ := b.GetIMEI(context.Background()); imei != "359000000000001" {
 		t.Fatalf("IMEI = %q", imei)
 	}
 	if imsi, _ := b.GetIMSI(context.Background()); imsi != "460001234567890" {

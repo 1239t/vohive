@@ -17,7 +17,7 @@ func encodeUTF16(s string) []byte {
 
 func TestDeviceCapsParsesIMEI(t *testing.T) {
 	const fixed = 8*4 + 4*8
-	imei := "356938035643809"
+	imei := "359000000000001"
 	imeiBytes := encodeUTF16(imei)
 	info := make([]byte, fixed+len(imeiBytes))
 	le.PutUint32(info[40:], fixed)

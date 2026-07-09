@@ -4,8 +4,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/iniwex5/vohive/internal/db"
-	"github.com/iniwex5/vohive/internal/proxy/server"
+	"github.com/1239t/vohive/internal/db"
+	"github.com/1239t/vohive/internal/proxy/server"
 )
 
 const (

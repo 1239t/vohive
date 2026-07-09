@@ -8,14 +8,14 @@ import (
 	"time"
 
 	"github.com/iniwex5/quectel-qmi-go/pkg/qmi"
-	"github.com/iniwex5/vohive/internal/backend"
-	"github.com/iniwex5/vohive/internal/config"
-	"github.com/iniwex5/vohive/internal/modem"
-	qmicore "github.com/iniwex5/vohive/internal/qmi"
-	"github.com/iniwex5/vohive/internal/sipgw"
-	"github.com/iniwex5/vohive/internal/vowifihost"
-	"github.com/iniwex5/vowifi-go/runtimehost"
-	"github.com/iniwex5/vowifi-go/runtimehost/identity"
+	"github.com/1239t/vohive/internal/backend"
+	"github.com/1239t/vohive/internal/config"
+	"github.com/1239t/vohive/internal/modem"
+	qmicore "github.com/1239t/vohive/internal/qmi"
+	"github.com/1239t/vohive/internal/sipgw"
+	"github.com/1239t/vohive/internal/vowifihost"
+	"github.com/1239t/vowifi-go/runtimehost"
+	"github.com/1239t/vowifi-go/runtimehost/identity"
 )
 
 type workerStatusBackendStub struct {
@@ -766,7 +766,7 @@ func TestBuildVoWiFiStartProfileUsesLiveIMSIAndBackendHomeMCCMNC(t *testing.T) {
 			workerStatusBackendStub: workerStatusBackendStub{mode: backend.BackendQMI},
 			seq:                     []smscResult{{value: "+8613800250500"}},
 		},
-		liveIMSI: "530240209434655",
+		liveIMSI: "530990000000001",
 	}
 	b.nativeMCC = "530"
 	b.nativeMNC = "24"
@@ -780,7 +780,7 @@ func TestBuildVoWiFiStartProfileUsesLiveIMSIAndBackendHomeMCCMNC(t *testing.T) {
 	if err != nil {
 		t.Fatalf("buildVoWiFiStartProfile() error=%v", err)
 	}
-	if profile.IMSI != "530240209434655" {
+	if profile.IMSI != "530990000000001" {
 		t.Fatalf("profile.IMSI=%q want live IMSI", profile.IMSI)
 	}
 	norm := identity.NormalizeProfile(identity.Profile{MCC: profile.MCC, MNC: profile.MNC})
@@ -800,11 +800,11 @@ func TestBuildVoWiFiStartProfileUsesLiveHomeMCCMNCInsteadOfStaleCache(t *testing
 			},
 			seq: []smscResult{{value: "+8613800250500"}},
 		},
-		liveIMSI: "234336575868434",
+		liveIMSI: "234990000000001",
 	}
 	w := &Worker{ID: "dev1", Backend: b}
 	w.cacheMu.Lock()
-	w.state.Identity.IMSI = "234336575868434"
+	w.state.Identity.IMSI = "234990000000001"
 	w.state.Identity.IMEI = "861234567890123"
 	w.state.Identity.NativeMCC = "234"
 	w.state.Identity.NativeMNC = "030"
@@ -814,7 +814,7 @@ func TestBuildVoWiFiStartProfileUsesLiveHomeMCCMNCInsteadOfStaleCache(t *testing
 	if err != nil {
 		t.Fatalf("buildVoWiFiStartProfile() error=%v", err)
 	}
-	if profile.IMSI != "234336575868434" {
+	if profile.IMSI != "234990000000001" {
 		t.Fatalf("profile.IMSI=%q want live IMSI", profile.IMSI)
 	}
 	if profile.MCC != "234" || profile.MNC != "33" {
@@ -831,11 +831,11 @@ func TestBuildVoWiFiStartProfileRequiresCachedHomeMCCMNC(t *testing.T) {
 			},
 			seq: []smscResult{{value: "+8613800250500"}},
 		},
-		liveIMSI: "234336575868434",
+		liveIMSI: "234990000000001",
 	}
 	w := &Worker{ID: "dev1", Backend: b}
 	w.cacheMu.Lock()
-	w.state.Identity.IMSI = "234336575868434"
+	w.state.Identity.IMSI = "234990000000001"
 	w.state.Identity.IMEI = "861234567890123"
 	w.cacheMu.Unlock()
 
@@ -855,7 +855,7 @@ func TestRefreshIdentityLiveCachesHomeMCCMNCThroughSIMMetadata(t *testing.T) {
 				},
 			},
 		},
-		liveIMSI: "234336575868434",
+		liveIMSI: "234990000000001",
 	}
 	w := &Worker{ID: "dev1", Backend: b}
 	w.cacheMu.Lock()
@@ -884,7 +884,7 @@ func TestRefreshIdentityLiveCachesHomeMCCMNCThroughBackendWhenMetadataEmpty(t *t
 				nativeMNC: "33",
 			},
 		},
-		liveIMSI: "234336575868434",
+		liveIMSI: "234990000000001",
 	}
 	w := &Worker{ID: "dev1", Backend: b}
 

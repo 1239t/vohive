@@ -6,8 +6,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/iniwex5/vohive/internal/backend"
-	"github.com/iniwex5/vohive/internal/config"
+	"github.com/1239t/vohive/internal/backend"
+	"github.com/1239t/vohive/internal/config"
 )
 
 // 现状记录:一台 MBIM 设备(requiresQMICore=false)在线 → 掉线 → 带相同 IMEI 以新路径回来。

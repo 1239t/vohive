@@ -20,7 +20,7 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/iniwex5/vohive/internal/upstreamproxy"
+	"github.com/1239t/vohive/internal/upstreamproxy"
 )
 
 func main() {

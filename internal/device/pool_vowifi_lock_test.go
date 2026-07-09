@@ -9,10 +9,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/iniwex5/vohive/internal/backend"
-	"github.com/iniwex5/vohive/internal/config"
-	"github.com/iniwex5/vohive/internal/modem"
-	"github.com/iniwex5/vowifi-go/runtimehost"
+	"github.com/1239t/vohive/internal/backend"
+	"github.com/1239t/vohive/internal/config"
+	"github.com/1239t/vohive/internal/modem"
+	"github.com/1239t/vowifi-go/runtimehost"
 )
 
 type vowifiLockBackendStub struct {

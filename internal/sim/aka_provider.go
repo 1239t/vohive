@@ -7,8 +7,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/iniwex5/vohive/pkg/logger"
-	swusim "github.com/iniwex5/vowifi-go/engine/sim"
+	"github.com/1239t/vohive/pkg/logger"
+	swusim "github.com/1239t/vowifi-go/engine/sim"
 )
 
 // ATModem 定义 simauth 所需的 Modem 能力接口。

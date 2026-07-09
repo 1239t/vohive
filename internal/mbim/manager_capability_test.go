@@ -4,7 +4,7 @@ import (
 	"context"
 	"testing"
 
-	"github.com/iniwex5/vohive/pkg/mbim"
+	"github.com/1239t/vohive/pkg/mbim"
 )
 
 func TestManagerBuildsCapabilityFromDeviceServices(t *testing.T) {

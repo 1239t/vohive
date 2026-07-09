@@ -5,7 +5,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/iniwex5/vohive/pkg/mbim"
+	"github.com/1239t/vohive/pkg/mbim"
 )
 
 func TestManagerControlDevice(t *testing.T) {
@@ -22,7 +22,7 @@ func TestManagerDelegatesToDevice(t *testing.T) {
 	if err != nil {
 		t.Fatalf("DeviceCaps: %v", err)
 	}
-	if caps.DeviceID != "356938035643809" {
+	if caps.DeviceID != "359000000000001" {
 		t.Fatalf("IMEI = %q", caps.DeviceID)
 	}
 	_ = mbim.UUIDBasicConnect
@@ -169,7 +169,7 @@ func TestManagerProbeUICC(t *testing.T) {
 func newTestDevice(t *testing.T) *mbim.Device {
 	t.Helper()
 	ft := mbim.NewFakeTransport(func(written []byte) ([]byte, bool) {
-		return mbim.TestAnswerDeviceCaps(written, "356938035643809")
+		return mbim.TestAnswerDeviceCaps(written, "359000000000001")
 	})
 	d := mbim.NewDevice(ft)
 	if err := d.Open(context.Background(), 4096); err != nil {

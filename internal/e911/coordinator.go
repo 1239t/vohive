@@ -5,11 +5,11 @@ import (
 	"errors"
 	"strings"
 
-	"github.com/iniwex5/vohive/internal/device"
-	"github.com/iniwex5/vohive/internal/modem"
-	"github.com/iniwex5/vohive/internal/websheet"
-	"github.com/iniwex5/vowifi-go/runtimehost/carrier"
-	runtimee911 "github.com/iniwex5/vowifi-go/runtimehost/e911"
+	"github.com/1239t/vohive/internal/device"
+	"github.com/1239t/vohive/internal/modem"
+	"github.com/1239t/vohive/internal/websheet"
+	"github.com/1239t/vowifi-go/runtimehost/carrier"
+	runtimee911 "github.com/1239t/vowifi-go/runtimehost/e911"
 )
 
 // ErrNotSupported means device status does not support e911 updates.

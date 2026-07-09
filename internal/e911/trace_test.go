@@ -72,7 +72,7 @@ func TestFormatEntitlementTraceBodyAnnotatesSubscriberIDNAI(t *testing.T) {
 	body := []byte(`{"subscriber-id":"AgAAOwEwMzEwMjgwMjMzNjg4NDk0QG5haS5lcGMubW5jMjgwLm1jYzMxMC4zZ3BwbmV0d29yay5vcmc=","action-name":"getAuthentication"}`)
 
 	got := formatEntitlementTraceBody(body, false)
-	if strings.Contains(got, "310280233688494") {
+	if strings.Contains(got, "310990000000002") {
 		t.Fatalf("trace body leaked IMSI: %s", got)
 	}
 	for _, marker := range []string{

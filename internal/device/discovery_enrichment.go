@@ -5,7 +5,7 @@ import (
 	"time"
 
 	qmiq "github.com/iniwex5/quectel-qmi-go/pkg/qmi"
-	"github.com/iniwex5/vohive/internal/config"
+	"github.com/1239t/vohive/internal/config"
 )
 
 var discoverQMIDevicesFn = DiscoverQMIDevices

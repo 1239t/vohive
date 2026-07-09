@@ -89,7 +89,7 @@ func TestNativeMCCMNCFromOPLRecordsSkipsWildcardPLMN(t *testing.T) {
 }
 
 func TestHomeMCCMNCFromIMSIAndEFADUsesTwoDigitMNC(t *testing.T) {
-	mcc, mnc, mncLen, source, err := HomeMCCMNCFromIMSIAndEFAD("234336575868434", []byte{0x00, 0x00, 0x00, 0x02})
+	mcc, mnc, mncLen, source, err := HomeMCCMNCFromIMSIAndEFAD("234990000000001", []byte{0x00, 0x00, 0x00, 0x02})
 	if err != nil {
 		t.Fatalf("HomeMCCMNCFromIMSIAndEFAD() error = %v", err)
 	}
@@ -99,7 +99,7 @@ func TestHomeMCCMNCFromIMSIAndEFADUsesTwoDigitMNC(t *testing.T) {
 }
 
 func TestHomeMCCMNCFromIMSIAndEFADUsesThreeDigitMNC(t *testing.T) {
-	mcc, mnc, mncLen, source, err := HomeMCCMNCFromIMSIAndEFAD("234336575868434", []byte{0x00, 0x00, 0x00, 0x03})
+	mcc, mnc, mncLen, source, err := HomeMCCMNCFromIMSIAndEFAD("234990000000001", []byte{0x00, 0x00, 0x00, 0x03})
 	if err != nil {
 		t.Fatalf("HomeMCCMNCFromIMSIAndEFAD() error = %v", err)
 	}
@@ -109,7 +109,7 @@ func TestHomeMCCMNCFromIMSIAndEFADUsesThreeDigitMNC(t *testing.T) {
 }
 
 func TestHomeMCCMNCFromIMSIAndEFADFallsBackToHeuristic(t *testing.T) {
-	mcc, mnc, mncLen, source, err := HomeMCCMNCFromIMSIAndEFAD("310280233641503", nil)
+	mcc, mnc, mncLen, source, err := HomeMCCMNCFromIMSIAndEFAD("310990000000001", nil)
 	if err != nil {
 		t.Fatalf("HomeMCCMNCFromIMSIAndEFAD() error = %v", err)
 	}

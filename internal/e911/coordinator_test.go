@@ -5,8 +5,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/iniwex5/vohive/internal/modem"
-	runtimee911 "github.com/iniwex5/vowifi-go/runtimehost/e911"
+	"github.com/1239t/vohive/internal/modem"
+	runtimee911 "github.com/1239t/vowifi-go/runtimehost/e911"
 )
 
 func TestCoordinatorDoesNotRunEntitlementProbes(t *testing.T) {
@@ -72,14 +72,14 @@ func TestBuildRuntimeE911IdentityIgnoresDebugCachedTokenEnv(t *testing.T) {
 	t.Setenv("VOHIVE_E911_ATT_CACHED_TOKEN", " cached-token-value ")
 
 	got := buildRuntimeE911Identity(modem.DeviceStatus{
-		IMSI: "310280233641503",
+		IMSI: "310990000000001",
 		IMEI: "356306952701762",
 	}, "310", "280", "VoHive")
 
 	if got.CachedToken != "" {
 		t.Fatalf("cached token=%q", got.CachedToken)
 	}
-	if got.SIPUsername != "310280233641503@private.att.net" {
+	if got.SIPUsername != "310990000000001@private.att.net" {
 		t.Fatalf("sip username=%q", got.SIPUsername)
 	}
 }

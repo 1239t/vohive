@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/iniwex5/vohive/pkg/logger"
+	"github.com/1239t/vohive/pkg/logger"
 )
 
 const qmiTransportFailureRecoveryReason = "qmi_transport_failed"

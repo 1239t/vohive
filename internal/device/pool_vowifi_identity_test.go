@@ -5,8 +5,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/iniwex5/vowifi-go/runtimehost"
-	"github.com/iniwex5/vowifi-go/runtimehost/identity"
+	"github.com/1239t/vowifi-go/runtimehost"
+	"github.com/1239t/vowifi-go/runtimehost/identity"
 )
 
 type vowifiIdentityTestModem struct {
@@ -45,13 +45,13 @@ func TestVoWiFiMainStartupPrepareRejectsPartialISIMBeforeDataplaneDisconnect(t *
 	_, err := identity.PrepareStart(identity.PrepareStartInput{
 		DeviceID: "wwan0",
 		Profile: identity.Profile{
-			IMSI: "310280233621715",
+			IMSI: "310990000000099",
 			MCC:  "310",
 			MNC:  "280",
 			IMEI: "350225622441987",
 		},
 		Access: runtimehost.NewModemAccessAdapter(vowifiIdentityTestModem{
-			identity: identity.Identity{IMPI: "310280233621715@private.att.net"},
+			identity: identity.Identity{IMPI: "310990000000099@private.att.net"},
 		}),
 	})
 	if err == nil {
@@ -66,16 +66,16 @@ func TestVoWiFiMainStartupUsesPreparedSessionIdentity(t *testing.T) {
 	prepared, err := identity.PrepareStart(identity.PrepareStartInput{
 		DeviceID: "wwan0",
 		Profile: identity.Profile{
-			IMSI: "310280233621715",
+			IMSI: "310990000000099",
 			MCC:  "310",
 			MNC:  "280",
 			IMEI: "350225622441987",
-			SMSC: "+13123149810",
+			SMSC: "+13800000000",
 		},
 		Access: runtimehost.NewModemAccessAdapter(vowifiIdentityTestModem{
 			identity: identity.Identity{
-				IMPI:   "310280233621715@private.att.net",
-				IMPU:   []string{"sip:310280233621715@one.att.net"},
+				IMPI:   "310990000000099@private.att.net",
+				IMPU:   []string{"sip:310990000000099@one.att.net"},
 				Domain: "one.att.net",
 			},
 		}),
@@ -96,7 +96,7 @@ func TestVoWiFiMainStartupUsesPreparedSessionIdentity(t *testing.T) {
 	if got.ActualSource != identity.IMSIdentitySourceISIM || got.AKAAppPreference != identity.AKAAppPreferenceISIMStrict || !got.Applied {
 		t.Fatalf("prepared identity=%+v", got)
 	}
-	if got.IMPI != "310280233621715@private.att.net" || got.IMPU != "sip:310280233621715@one.att.net" || got.Domain != "one.att.net" {
+	if got.IMPI != "310990000000099@private.att.net" || got.IMPU != "sip:310990000000099@one.att.net" || got.Domain != "one.att.net" {
 		t.Fatalf("identity=%+v", got)
 	}
 }
@@ -106,15 +106,15 @@ func TestVoWiFiMainStartupPreparedSessionAppliesRuntimeEPDGOverride(t *testing.T
 		DeviceID:            "wwan0",
 		RuntimeEPDGOverride: "redirect.epdg.example",
 		Profile: identity.Profile{
-			IMSI: "310280233621715",
+			IMSI: "310990000000099",
 			MCC:  "310",
 			MNC:  "280",
 			IMEI: "350225622441987",
 		},
 		Access: runtimehost.NewModemAccessAdapter(vowifiIdentityTestModem{
 			identity: identity.Identity{
-				IMPI:   "310280233621715@private.att.net",
-				IMPU:   []string{"sip:310280233621715@one.att.net"},
+				IMPI:   "310990000000099@private.att.net",
+				IMPU:   []string{"sip:310990000000099@one.att.net"},
 				Domain: "one.att.net",
 			},
 		}),
@@ -131,15 +131,15 @@ func TestVoWiFiMainStartupPrepareUsesISIMIdentity(t *testing.T) {
 	prepared, err := identity.PrepareStart(identity.PrepareStartInput{
 		DeviceID: "wwan0",
 		Profile: identity.Profile{
-			IMSI: "310280233621715",
+			IMSI: "310990000000099",
 			MCC:  "310",
 			MNC:  "280",
 			IMEI: "350225622441987",
 		},
 		Access: runtimehost.NewModemAccessAdapter(vowifiIdentityTestModem{
 			identity: identity.Identity{
-				IMPI:   "310280233621715@private.att.net",
-				IMPU:   []string{"sip:310280233621715@one.att.net"},
+				IMPI:   "310990000000099@private.att.net",
+				IMPU:   []string{"sip:310990000000099@one.att.net"},
 				Domain: "one.att.net",
 			},
 		}),
@@ -151,7 +151,7 @@ func TestVoWiFiMainStartupPrepareUsesISIMIdentity(t *testing.T) {
 	if got.ActualSource != identity.IMSIdentitySourceISIM || got.AKAAppPreference != identity.AKAAppPreferenceISIMStrict || !got.Applied {
 		t.Fatalf("resolution=%+v", got)
 	}
-	if got.IMPI != "310280233621715@private.att.net" || got.IMPU != "sip:310280233621715@one.att.net" || got.Domain != "one.att.net" {
+	if got.IMPI != "310990000000099@private.att.net" || got.IMPU != "sip:310990000000099@one.att.net" || got.Domain != "one.att.net" {
 		t.Fatalf("identity=%+v", got)
 	}
 }

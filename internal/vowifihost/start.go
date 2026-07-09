@@ -5,8 +5,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/iniwex5/vohive/pkg/logger"
-	"github.com/iniwex5/vowifi-go/runtimehost"
+	"github.com/1239t/vohive/pkg/logger"
+	"github.com/1239t/vowifi-go/runtimehost"
 )
 
 func (m *Manager) BeginStart(deviceID string) StartClaim {

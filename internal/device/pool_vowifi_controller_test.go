@@ -12,13 +12,13 @@ import (
 	"testing"
 	"time"
 
-	"github.com/iniwex5/vohive/internal/apduarbiter"
-	"github.com/iniwex5/vohive/internal/backend"
-	"github.com/iniwex5/vohive/internal/cardpolicy"
-	"github.com/iniwex5/vohive/internal/config"
-	"github.com/iniwex5/vohive/internal/vowifihost"
-	"github.com/iniwex5/vohive/pkg/logger"
-	"github.com/iniwex5/vowifi-go/runtimehost"
+	"github.com/1239t/vohive/internal/apduarbiter"
+	"github.com/1239t/vohive/internal/backend"
+	"github.com/1239t/vohive/internal/cardpolicy"
+	"github.com/1239t/vohive/internal/config"
+	"github.com/1239t/vohive/internal/vowifihost"
+	"github.com/1239t/vohive/pkg/logger"
+	"github.com/1239t/vowifi-go/runtimehost"
 )
 
 func newVoWiFiLifecycleControllerForTest(p *Pool) *vowifihost.LifecycleController {

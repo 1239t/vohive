@@ -5,8 +5,8 @@ import (
 	"os"
 	"testing"
 
-	"github.com/iniwex5/vohive/internal/backend"
-	"github.com/iniwex5/vowifi-go/runtimehost/carrier"
+	"github.com/1239t/vohive/internal/backend"
+	"github.com/1239t/vowifi-go/runtimehost/carrier"
 )
 
 func TestUTRANCellIDSuffixFromServingSystem(t *testing.T) {

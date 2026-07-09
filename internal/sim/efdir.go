@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/iniwex5/vohive/pkg/logger"
+	"github.com/1239t/vohive/pkg/logger"
 )
 
 // ResolveAIDViaEFDIR 通过"开引导通道 + 在通道上发 APDU 读 EF_DIR"解析出 hex 以

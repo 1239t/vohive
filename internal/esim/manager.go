@@ -21,10 +21,10 @@ import (
 	"github.com/damonto/euicc-go/driver"
 	"github.com/damonto/euicc-go/lpa"
 	sgp22 "github.com/damonto/euicc-go/v2"
-	"github.com/iniwex5/vohive/internal/apduarbiter"
-	backendpkg "github.com/iniwex5/vohive/internal/backend"
-	"github.com/iniwex5/vohive/internal/modem"
-	"github.com/iniwex5/vohive/pkg/logger"
+	"github.com/1239t/vohive/internal/apduarbiter"
+	backendpkg "github.com/1239t/vohive/internal/backend"
+	"github.com/1239t/vohive/internal/modem"
+	"github.com/1239t/vohive/pkg/logger"
 )
 
 // 支持的 ISD-R AID 列表

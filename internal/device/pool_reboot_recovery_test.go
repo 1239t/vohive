@@ -9,10 +9,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/iniwex5/vohive/internal/backend"
-	"github.com/iniwex5/vohive/internal/config"
-	"github.com/iniwex5/vohive/internal/db"
-	"github.com/iniwex5/vohive/internal/modem"
+	"github.com/1239t/vohive/internal/backend"
+	"github.com/1239t/vohive/internal/config"
+	"github.com/1239t/vohive/internal/db"
+	"github.com/1239t/vohive/internal/modem"
 )
 
 func TestModemRebootRecoveryDefaults(t *testing.T) {

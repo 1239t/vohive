@@ -7,7 +7,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/iniwex5/vohive/internal/upstreamproxy"
+	"github.com/1239t/vohive/internal/upstreamproxy"
 )
 
 func openTestDB(t *testing.T) {

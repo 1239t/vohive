@@ -4,7 +4,7 @@ package taskpool
 import (
 	"sync"
 
-	"github.com/iniwex5/vohive/pkg/logger"
+	"github.com/1239t/vohive/pkg/logger"
 )
 
 // Pool 有界异步任务池

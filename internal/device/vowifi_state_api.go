@@ -6,9 +6,9 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/iniwex5/vohive/pkg/smscodec"
-	"github.com/iniwex5/vowifi-go/runtimehost"
-	"github.com/iniwex5/vowifi-go/runtimehost/messaging"
+	"github.com/1239t/vohive/pkg/smscodec"
+	"github.com/1239t/vowifi-go/runtimehost"
+	"github.com/1239t/vowifi-go/runtimehost/messaging"
 )
 
 // nextRPMR allocates RP-Message-Reference values for outgoing VoWiFi SMS

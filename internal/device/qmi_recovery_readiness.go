@@ -4,7 +4,7 @@ import (
 	"context"
 	"time"
 
-	"github.com/iniwex5/vohive/pkg/logger"
+	"github.com/1239t/vohive/pkg/logger"
 )
 
 var qmiIdentityConvergenceTimeout = 2 * time.Minute

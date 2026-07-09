@@ -5,7 +5,7 @@ import (
 	"encoding/binary"
 	"testing"
 
-	"github.com/iniwex5/vohive/pkg/mbim"
+	"github.com/1239t/vohive/pkg/mbim"
 )
 
 func TestManagerSetPacketServiceSendsAttach(t *testing.T) {

@@ -14,7 +14,7 @@ import (
 	"slices"
 	"strings"
 
-	"github.com/iniwex5/vohive/pkg/logger"
+	"github.com/1239t/vohive/pkg/logger"
 )
 
 //go:embed ci.json

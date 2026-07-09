@@ -13,12 +13,12 @@ import (
 
 	sgp22 "github.com/damonto/euicc-go/v2"
 	"github.com/gin-gonic/gin"
-	"github.com/iniwex5/vohive/internal/apduarbiter"
-	"github.com/iniwex5/vohive/internal/config"
-	"github.com/iniwex5/vohive/internal/db"
-	"github.com/iniwex5/vohive/internal/device"
-	"github.com/iniwex5/vohive/internal/esim"
-	"github.com/iniwex5/vohive/internal/modem"
+	"github.com/1239t/vohive/internal/apduarbiter"
+	"github.com/1239t/vohive/internal/config"
+	"github.com/1239t/vohive/internal/db"
+	"github.com/1239t/vohive/internal/device"
+	"github.com/1239t/vohive/internal/esim"
+	"github.com/1239t/vohive/internal/modem"
 	"golang.org/x/sync/singleflight"
 )
 
@@ -563,14 +563,14 @@ func TestEsimDownloadExecPropagatesWarningResult(t *testing.T) {
 			Warning:     "Profile 下载完成，但通知未完全确认",
 			WarningCode: "download_notification_handle_failed",
 		}, nil
-	}, context.Background(), "A000", "example.com", "", "", "350225641234561", nil)
+	}, context.Background(), "A000", "example.com", "", "", "359000000000002", nil)
 	if err != nil {
 		t.Fatalf("esimDownloadExec() error=%v", err)
 	}
 	if result.WarningCode != "download_notification_handle_failed" {
 		t.Fatalf("result=%#v want warning result passthrough", result)
 	}
-	if gotIMEI != "350225641234561" {
+	if gotIMEI != "359000000000002" {
 		t.Fatalf("imei=%q want forwarded custom IMEI", gotIMEI)
 	}
 }

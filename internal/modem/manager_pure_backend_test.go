@@ -3,7 +3,7 @@ package modem
 import (
 	"testing"
 
-	"github.com/iniwex5/vohive/internal/config"
+	"github.com/1239t/vohive/internal/config"
 )
 
 func TestPureControlPlaneBackendMBIM(t *testing.T) {

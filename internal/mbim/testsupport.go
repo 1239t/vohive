@@ -4,7 +4,7 @@ import (
 	"context"
 	"time"
 
-	"github.com/iniwex5/vohive/pkg/mbim"
+	"github.com/1239t/vohive/pkg/mbim"
 )
 
 // NewForTest creates an opened Manager backed by the given transport, for

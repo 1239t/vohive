@@ -6,9 +6,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/iniwex5/vohive/internal/backend"
-	"github.com/iniwex5/vowifi-go/runtimehost/carrier"
-	"github.com/iniwex5/vowifi-go/runtimehost/voiceclient"
+	"github.com/1239t/vohive/internal/backend"
+	"github.com/1239t/vowifi-go/runtimehost/carrier"
+	"github.com/1239t/vowifi-go/runtimehost/voiceclient"
 )
 
 func waitVoWiFiServingCellID(ctx context.Context, w *Worker, timeout time.Duration) {

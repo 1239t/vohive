@@ -3,7 +3,7 @@ package vowifihost
 import (
 	"testing"
 
-	"github.com/iniwex5/vowifi-go/runtimehost"
+	"github.com/1239t/vowifi-go/runtimehost"
 )
 
 func TestManagerRuntimeAccessorsReadThroughRuntimeStore(t *testing.T) {

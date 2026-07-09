@@ -1,4 +1,4 @@
-module github.com/iniwex5/vohive
+module github.com/1239t/vohive
 
 go 1.26.3
 
@@ -12,7 +12,7 @@ require (
 	github.com/iniwex5/netlink v1.3.3
 	github.com/iniwex5/qqbot v1.0.1
 	github.com/iniwex5/quectel-qmi-go v0.6.0
-	github.com/iniwex5/vowifi-go v1.1.2
+	github.com/1239t/vowifi-go v1.1.2
 	github.com/larksuite/oapi-sdk-go/v3 v3.5.3
 	github.com/lestrrat-go/file-rotatelogs v2.4.0+incompatible
 	github.com/miekg/dns v1.1.67
@@ -59,7 +59,7 @@ require (
 	github.com/google/pprof v0.0.0-20231101202521-4ca4178f5c7a // indirect
 	github.com/gorilla/websocket v1.5.3 // indirect
 	github.com/icholy/digest v1.1.0 // indirect
-	github.com/iniwex5/swu-go v0.0.0-20260225055435-bd416d4ebf5a // indirect
+	github.com/1239t/swu-go v0.0.0-20260225055435-bd416d4ebf5a // indirect
 	github.com/jinzhu/inflection v1.0.0 // indirect
 	github.com/jinzhu/now v1.1.5 // indirect
 	github.com/jonboulle/clockwork v0.5.0 // indirect

@@ -5,7 +5,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/iniwex5/vowifi-go/runtimehost"
+	"github.com/1239t/vowifi-go/runtimehost"
 )
 
 func TestManagerDesiredRecoverableIsFalseWhenRuntimeActiveOrStarting(t *testing.T) {

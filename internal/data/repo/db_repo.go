@@ -4,8 +4,8 @@ import (
 	"context"
 	"errors"
 
-	"github.com/iniwex5/vohive/internal/config"
-	"github.com/iniwex5/vohive/internal/db"
+	"github.com/1239t/vohive/internal/config"
+	"github.com/1239t/vohive/internal/db"
 
 	"gorm.io/gorm"
 )

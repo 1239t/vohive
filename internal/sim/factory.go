@@ -5,10 +5,10 @@ import (
 	"errors"
 	"strings"
 
-	"github.com/iniwex5/vohive/internal/backend"
-	"github.com/iniwex5/vohive/pkg/logger"
-	"github.com/iniwex5/vohive/pkg/mbim"
-	swusim "github.com/iniwex5/vowifi-go/engine/sim"
+	"github.com/1239t/vohive/internal/backend"
+	"github.com/1239t/vohive/pkg/logger"
+	"github.com/1239t/vohive/pkg/mbim"
+	swusim "github.com/1239t/vowifi-go/engine/sim"
 )
 
 // BackendAKAProvider is the backend surface needed to compute AKA without APDU.

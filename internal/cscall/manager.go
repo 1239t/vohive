@@ -11,10 +11,10 @@ import (
 	"github.com/emiago/sipgo"
 	"github.com/emiago/sipgo/sip"
 	"github.com/google/uuid"
-	"github.com/iniwex5/vohive/internal/modem"
-	"github.com/iniwex5/vohive/internal/sipgw"
-	"github.com/iniwex5/vohive/pkg/logger"
-	"github.com/iniwex5/vowifi-go/runtimehost/voicehost"
+	"github.com/1239t/vohive/internal/modem"
+	"github.com/1239t/vohive/internal/sipgw"
+	"github.com/1239t/vohive/pkg/logger"
+	"github.com/1239t/vowifi-go/runtimehost/voicehost"
 )
 
 // CallState 定义 CS 呼叫状态
