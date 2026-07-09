@@ -196,8 +196,13 @@ jobs:
           merge-multiple: true
           path: dist
 
+      - name: List release files
+        shell: bash
+        run: ls -lh dist/
+
       - name: Publish to GitHub Release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ steps.release_vars.outputs.release_version }}
           generate_release_notes: true
+          files: dist/*
