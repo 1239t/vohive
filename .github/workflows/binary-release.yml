@@ -23,7 +23,7 @@ permissions:
 
 concurrency:
   group: binary-release-${{ github.ref }}
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   frontend:
@@ -36,7 +36,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
           cache: 'npm'
           cache-dependency-path: web/package-lock.json
 
@@ -82,6 +82,23 @@ jobs:
           go-version-file: go.mod
           cache: true
 
+      - name: Download Go modules
+        shell: bash
+        env:
+          GOPROXY: "https://proxy.golang.org,direct"
+          GONOSUMCHECK: "github.com/1239t/*"
+          GONOSUMDB: "github.com/1239t/*"
+        run: |
+          for i in 1 2 3; do
+            echo "Attempt $i: downloading modules..."
+            if go mod download; then
+              echo "Modules downloaded successfully"
+              break
+            fi
+            echo "Attempt $i failed, retrying in 10s..."
+            sleep 10
+          done
+
       - name: Prepare build vars
         id: vars
         shell: bash
@@ -124,6 +141,10 @@ jobs:
 
       - name: Build binary
         shell: bash
+        env:
+          GOPROXY: "https://proxy.golang.org,direct"
+          GONOSUMCHECK: "github.com/1239t/*"
+          GONOSUMDB: "github.com/1239t/*"
         run: |
           mkdir -p dist
           CGO_ENABLED=0 GOOS=linux GOARCH=${{ matrix.goarch }} GOARM=${{ matrix.goarm }} \
