@@ -268,5 +268,5 @@ modernc.org/sqlite v1.23.1 h1:nrSBg4aRQQwq59JpvGEQ15tNxoO5pX/kUjcRNwSAGQM=
 modernc.org/sqlite v1.23.1/go.mod h1:OrDj17Mggn6MhE+iPbBNf7RGKODDE9NFT0f3EwDzJqk=
 github.com/1239t/vowifi-go v1.1.3 h1:7sD1rwZLAEoOXDb8BI2FWKu4ry+c4/vZLxTv2E1i1G8=
 github.com/1239t/vowifi-go v1.1.3/go.mod h1:WbxpRyjjRz+pTE38MKCcnmJngIyk3PLRUbjOk92ORrI=
-github.com/1239t/swu-go v0.0.1 h1:qtYFWk1syE6WnfjSBFnkKGbmr0DEZGX1z8YgSH9t0mI=
-github.com/1239t/swu-go v0.0.1/go.mod h1:cWRTZB8pPY6P8dzRSx+Mf5XJxphHDv2xgRwHPY+avGA=
+github.com/1239t/swu-go v0.0.2 h1:pyaWZI3SuyOg7+gtj2vQv/iW38z0KMSQnlRDrPfK59Q=
+github.com/1239t/swu-go v0.0.2/go.mod h1:cWRTZB8pPY6P8dzRSx+Mf5XJxphHDv2xgRwHPY+avGA=
