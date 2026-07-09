@@ -3,6 +3,7 @@ module github.com/1239t/vohive
 go 1.26.3
 
 require (
+	github.com/1239t/vowifi-go v1.1.3
 	github.com/damonto/euicc-go v1.1.3-0.20260628013808-8d873a2dfc98
 	github.com/emiago/sipgo v1.4.0
 	github.com/gin-gonic/gin v1.11.0
@@ -12,7 +13,6 @@ require (
 	github.com/iniwex5/netlink v1.3.3
 	github.com/iniwex5/qqbot v1.0.1
 	github.com/iniwex5/quectel-qmi-go v0.6.0
-	github.com/1239t/vowifi-go v1.1.2
 	github.com/larksuite/oapi-sdk-go/v3 v3.5.3
 	github.com/lestrrat-go/file-rotatelogs v2.4.0+incompatible
 	github.com/miekg/dns v1.1.67
