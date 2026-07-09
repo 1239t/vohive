@@ -2,10 +2,12 @@ package vowifihost
 
 import (
 	"context"
+	"encoding/hex"
 	"fmt"
 	"strings"
 	"time"
 
+	innersim "github.com/iniwex5/vohive/internal/sim"
 	swusim "github.com/iniwex5/vowifi-go/engine/sim"
 	"github.com/iniwex5/vowifi-go/runtimehost"
 	"github.com/iniwex5/vowifi-go/runtimehost/eventhost"
@@ -25,14 +27,82 @@ func (m missingSIMProvider) CalculateAKA(rand, autn []byte) (swusim.AKAResult, e
 }
 func (m missingSIMProvider) Close() error { return nil }
 
+type modemSIMAdapter struct {
+	modem      runtimehost.Modem
+	cachedIMSI string
+}
+
+func (a *modemSIMAdapter) GetIMSI() (string, error) {
+	if strings.TrimSpace(a.cachedIMSI) != "" {
+		return a.cachedIMSI, nil
+	}
+	if a == nil || a.modem == nil {
+		return "", fmt.Errorf("read IMSI from modem: modem unavailable")
+	}
+	id, err := a.modem.GetISIMIdentity()
+	if err != nil {
+		return "", fmt.Errorf("read IMSI from modem: %w", err)
+	}
+	if strings.TrimSpace(id.IMSI) == "" {
+		return "", fmt.Errorf("read IMSI from modem: IMSI unavailable")
+	}
+	a.cachedIMSI = strings.TrimSpace(id.IMSI)
+	return a.cachedIMSI, nil
+}
+
+func (a *modemSIMAdapter) CalculateAKA(randBytes, autnBytes []byte) (swusim.AKAResult, error) {
+	if a == nil || a.modem == nil {
+		return swusim.AKAResult{}, fmt.Errorf("build AKA APDU: modem unavailable")
+	}
+
+	apdu, err := innersim.BuildUSIMAuthAPDU(randBytes, autnBytes, true)
+	if err != nil {
+		return swusim.AKAResult{}, fmt.Errorf("build AKA APDU: %w", err)
+	}
+
+	usimAID := "A0000000871002FF44FF128900000100"
+	channel, err := a.modem.OpenLogicalChannel(usimAID)
+	if err != nil {
+		isimAID := "A0000000871004FFFFFFFF89000000"
+		channel, err = a.modem.OpenLogicalChannel(isimAID)
+		if err != nil {
+			return swusim.AKAResult{}, fmt.Errorf("open USIM/ISIM logical channel: %w", err)
+		}
+	}
+	defer a.modem.CloseLogicalChannel(channel)
+
+	respHex, err := a.modem.TransmitAPDU(channel, hex.EncodeToString(apdu))
+	if err != nil {
+		return swusim.AKAResult{}, fmt.Errorf("transmit AKA APDU: %w", err)
+	}
+
+	respBytes, err := hex.DecodeString(respHex)
+	if err != nil {
+		return swusim.AKAResult{}, fmt.Errorf("decode AKA response: %w", err)
+	}
+	return innersim.ParseUSIMAuthResponse("modem", respBytes)
+}
+
+func (a *modemSIMAdapter) Close() error { return nil }
+
 // buildVoWiFiSIMAdapter prefers an injected SIM adapter (e.g. MBIM Auth AKA for
 // modems without SIM logical-channel APDU); otherwise derives one from the
 // modem's APDU path (AT/QMI).
 func buildVoWiFiSIMAdapter(override runtimehost.SIMAdapter, modem runtimehost.Modem, imsi string) runtimehost.SIMAdapter {
+	imsi = strings.TrimSpace(imsi)
 	if override != nil {
+		if imsi != "" {
+			if liveIMSI, err := override.GetIMSI(); err != nil || strings.TrimSpace(liveIMSI) == "" {
+				if p, ok := override.(swusim.AKAProvider); ok {
+					return runtimehost.NewReaderSIMAdapterWithIMSI(p, imsi)
+				}
+			}
+		}
 		return override
 	}
-	// 所有后端的 AKA 现由 vohive 注入；缺失说明编排未设置，属调用错误。
+	if modem != nil {
+		return &modemSIMAdapter{modem: modem, cachedIMSI: imsi}
+	}
 	return runtimehost.NewReaderSIMAdapter(missingSIMProvider{})
 }
 
@@ -79,6 +149,10 @@ func (m *Manager) StartRuntime(ctx context.Context, req RuntimeStartRequest) (Ru
 	if ctx == nil {
 		ctx = context.Background()
 	}
+	traceID := strings.TrimSpace(req.TraceID)
+	if traceID == "" {
+		traceID = runtimehost.NewTraceID()
+	}
 
 	prepared := req.Prepared.Prepared
 	profile := prepared.Profile
@@ -93,7 +167,7 @@ func (m *Manager) StartRuntime(ctx context.Context, req RuntimeStartRequest) (Ru
 	inst, err := m.runtimeStarter()(ctx, runtimehost.StartRequest{
 		Mode:          runtimehost.StartModeMain,
 		DeviceID:      deviceID,
-		TraceID:       strings.TrimSpace(req.TraceID),
+		TraceID:       traceID,
 		Profile:       profile,
 		Prepared:      &prepared,
 		NetworkMode:   networkMode,
@@ -102,7 +176,12 @@ func (m *Manager) StartRuntime(ctx context.Context, req RuntimeStartRequest) (Ru
 		Access:        runtimehost.NewModemAccessAdapter(req.Modem),
 		Dataplane:     req.Dataplane,
 		Proxy:         req.Prepared.Proxy,
-		DeliveryStore: req.DeliveryStore,
+		PCSCFAddr:       req.Prepared.PCSCFAddr,
+		CellID:          req.Prepared.CellID,
+		RegisterProfile: req.Prepared.RegisterProfile,
+		SIPInstanceURN:  req.Prepared.SIPInstanceURN,
+		RegisterExpiry:  req.Prepared.RegisterExpiry,
+		DeliveryStore:   req.DeliveryStore,
 		Dispatch:      req.Dispatch,
 		BeforeStart:   req.BeforeStart,
 		ShouldRun: func() bool {

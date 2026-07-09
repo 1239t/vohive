@@ -1,0 +1,67 @@
+server:
+    debug: false
+    port: 7575
+
+web:
+    username: admin
+    password: admin123
+
+devices:
+    - device_backend: qmi
+      id: wwan0
+      name: "SIM 卡 1"
+    - device_backend: qmi
+      id: wwan1
+      name: "SIM 卡 2"
+
+telegram:
+    enabled: false
+    bot_token: ""
+    chat_id: 0
+    base_url: ""
+    proxy: ""
+    admin_id: 0
+
+feishu:
+    enabled: false
+    app_id: ""
+    app_secret: ""
+    chat_ids: []
+
+qq:
+    enabled: false
+    app_id: ""
+    app_secret: ""
+    group_ids: ""
+    direct_ids: ""
+
+webhook:
+    enabled: false
+    urls: []
+    text_template: '{{device_label}} {{text}}'
+    headers: {}
+    secret: ""
+    timeout_ms: 5000
+    retry_max: 3
+
+bark:
+    enabled: false
+    urls: []
+    group: vohive
+    icon: ""
+    level: active
+
+email:
+    enabled: false
+    smtp_host: ""
+    smtp_port: 0
+    username: ""
+    password: ""
+    from_address: ""
+    to_addresses: []
+
+pushplus:
+    enabled: false
+    token: ""
+    topic: ""
+    channel: wechat

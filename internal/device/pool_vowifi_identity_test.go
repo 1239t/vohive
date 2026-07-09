@@ -23,8 +23,11 @@ func (m vowifiIdentityTestModem) GetNetworkMode() string          { return "LTE"
 func (m vowifiIdentityTestModem) ExecuteATSilent(string, time.Duration) (string, error) {
 	return "", nil
 }
-func (m vowifiIdentityTestModem) OpenLogicalChannel(string) (int, error)   { return 0, nil }
-func (m vowifiIdentityTestModem) CloseLogicalChannel(int) error            { return nil }
+func (m vowifiIdentityTestModem) OpenLogicalChannel(string) (int, error) { return 0, nil }
+func (m vowifiIdentityTestModem) ResolveLogicalChannelAID(app string, fallbackAID string) (string, string, error) {
+	return fallbackAID, "", nil
+}
+func (m vowifiIdentityTestModem) CloseLogicalChannel(int) error { return nil }
 func (m vowifiIdentityTestModem) TransmitAPDU(int, string) (string, error) { return "", nil }
 func (m vowifiIdentityTestModem) Stop()                                    {}
 func (m vowifiIdentityTestModem) GetISIMIdentity() (identity.Identity, error) {

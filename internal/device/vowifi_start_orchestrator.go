@@ -188,7 +188,7 @@ func (p *Pool) prepareVoWiFiStartContext(deviceID, traceID, runtimeEPDGOverride 
 	} else {
 		logger.Info("VoWiFi 使用 APDU(AKA) 鉴权", "trace_id", traceID, "device", deviceID)
 	}
-	startCtx.SIM = runtimehost.NewReaderSIMAdapter(akaProvider)
+	startCtx.SIM = runtimehost.NewReaderSIMAdapterWithIMSI(akaProvider, startProfile.IMSI)
 
 	if carrier.IsVoWiFiBlockedMCC(startProfile.MCC) {
 		err := carrier.NewVoWiFiBlockedMCCError(startProfile.MCC)
@@ -230,6 +230,60 @@ func (p *Pool) prepareVoWiFiStartContext(deviceID, traceID, runtimeEPDGOverride 
 		"actual_source", prepared.IMSIdentity.ActualSource,
 		"aka_app_preference", prepared.IMSIdentity.AKAAppPreference,
 		"applied", prepared.IMSIdentity.Applied)
+
+	alreadyInFlightForCell := false
+	if opMode, opErr := w.Backend.GetOperatingMode(p.ctx); opErr == nil {
+		alreadyInFlightForCell = isFlightOperatingMode(opMode)
+	}
+	if !alreadyInFlightForCell {
+		waitVoWiFiServingCellID(p.ctx, w, 12*time.Second)
+	}
+	cellSuffix, cellSource := resolveVoWiFiIMSUTRANCellID(p.ctx, w, startProfile.MCC, startProfile.MNC)
+	startCtx.CellID = cellSuffix
+	switch cellSource {
+	case "qmi":
+		logger.Info("VoWiFi 已从 QMI 注入服务小区 ID",
+			"trace_id", traceID,
+			"device", deviceID,
+			"ims_utran_cell_suffix", startCtx.CellID,
+			"cell_id_source", cellSource)
+	case "carrier_default":
+		logger.Info("VoWiFi 使用运营商推荐小区 ID",
+			"trace_id", traceID,
+			"device", deviceID,
+			"matched_plmn", startProfile.MCC+"/"+startProfile.MNC,
+			"ims_utran_cell_suffix", startCtx.CellID,
+			"cell_id_source", cellSource)
+	case "none":
+		logger.Info("VoWiFi 已禁用 IMS cell-id 注入",
+			"trace_id", traceID,
+			"device", deviceID,
+			"cell_id_source", cellSource)
+	default:
+		logger.Warn("VoWiFi 未能读取服务小区 ID，IMS REGISTER 将使用占位 cell-id",
+			"trace_id", traceID,
+			"device", deviceID)
+	}
+
+	if regOpts := carrier.ResolveIMSRegisterProfile(startProfile.MCC, startProfile.MNC); strings.TrimSpace(regOpts.Profile.ContactFeatures) != "" {
+		startCtx.RegisterProfile = regOpts.Profile
+		startCtx.SIPInstanceURN = regOpts.SIPInstanceURN
+		startCtx.RegisterExpiry = regOpts.RegisterExpiry
+		logger.Info("VoWiFi 已启用手机 REGISTER 伪装画像",
+			"trace_id", traceID,
+			"device", deviceID,
+			"register_profile", regOpts.Profile.ContactFeatures,
+			"user_agent", regOpts.Profile.UserAgent,
+			"sip_instance", regOpts.SIPInstanceURN,
+			"register_expires", int(regOpts.RegisterExpiry.Seconds()))
+	}
+	if pcscfOverride := carrier.ResolveIMSPcscfAddr(startProfile.MCC, startProfile.MNC); pcscfOverride != "" {
+		startCtx.PCSCFAddr = pcscfOverride
+		logger.Info("VoWiFi 使用运营商 P-CSCF 覆盖",
+			"trace_id", traceID,
+			"device", deviceID,
+			"pcscf_override", pcscfOverride)
+	}
 
 	if nc := w.NetworkController(); nc != nil {
 		w.restoreNetworkAfterVoWiFi = w.Config.NetworkEnabled

@@ -1,6 +1,10 @@
 # 构建产物
 /vo-hive
 /mbimprobe
+/vohive
+/vohive-relay
+/udprelaytest
+/udprelayunit
 *.exe
 *.dll
 *.so
@@ -69,3 +73,8 @@ web/tests
 Quectel_EC2xEG2xEG9xEM05_Series_AT_Commands_Manual_V2.2.pdf
 Quectel_EC2xEG2xEG9xEM05_Series_QCFG_AT_Commands_Manual_V1.6.pdf
 410sim自动激活脚本/*
+
+# StrongSwan 源码和补丁 (大型第三方文件)
+/strongswan-5.9.1/
+/strongswan_*.tar.*
+/strongswan_*.dsc

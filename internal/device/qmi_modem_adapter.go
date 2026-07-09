@@ -70,8 +70,20 @@ func (a *qmiModemAdapter) TransmitAPDU(channel int, hexAPDU string) (string, err
 	return resp, normalizeVoWiFiAPDUError(err)
 }
 
+// GetISIMIdentity is not implemented: a real ISIM read needs APDU access to
+// the ISIM application's EF_IMPI/EF_IMPU/EF_DOMAIN (3GPP TS 31.103), which
+// isn't built yet -- OpenLogicalChannel/TransmitAPDU/CloseLogicalChannel
+// above are the primitives it would use. Returning an error here (instead
+// of, as before, calling identity.ReadISIMIdentity(a) -- which just calls
+// back into this same method via the ISIMReader interface, an infinite
+// recursion that crashed the process with a stack overflow the first time
+// a real VoWiFi start actually reached this call) is deliberate:
+// identity.resolveISIM treats any error here as "no ISIM available" and
+// falls back to the already-working IMSI-derived NAI identity, which is
+// sufficient for EAP-AKA/IMS-AKA -- ISIM only changes which identity
+// string gets used, not whether authentication itself can succeed.
 func (a *qmiModemAdapter) GetISIMIdentity() (identity.Identity, error) {
-	return identity.ReadISIMIdentity(a)
+	return identity.Identity{}, fmt.Errorf("qmi modem adapter: ISIM identity read not implemented")
 }
 
 // ============================================================================

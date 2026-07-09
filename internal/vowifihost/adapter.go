@@ -8,6 +8,7 @@ import (
 
 	"github.com/iniwex5/vowifi-go/runtimehost"
 	"github.com/iniwex5/vowifi-go/runtimehost/identity"
+	"github.com/iniwex5/vowifi-go/runtimehost/voiceclient"
 )
 
 type PreparedStart struct {
@@ -16,7 +17,12 @@ type PreparedStart struct {
 	Modem        runtimehost.Modem
 	SIM          runtimehost.SIMAdapter // optional override; when nil, derived from Modem APDU
 	Proxy        *runtimehost.ProxyConfig
-	NetworkMode  string
+	PCSCFAddr        string
+	CellID           string
+	RegisterProfile  voiceclient.RegisterProfile
+	SIPInstanceURN   string
+	RegisterExpiry   time.Duration
+	NetworkMode      string
 	StartupState runtimehost.State
 }
 

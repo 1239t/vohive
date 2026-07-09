@@ -28,7 +28,6 @@ import (
 	proxytraffic "github.com/iniwex5/vohive/internal/proxy/traffic"
 	vwebsheet "github.com/iniwex5/vohive/internal/websheet"
 	"github.com/iniwex5/vohive/pkg/smscodec"
-	"github.com/iniwex5/vowifi-go/runtimehost/messaging"
 	"github.com/iniwex5/vowifi-go/runtimehost/voicehost"
 
 	"github.com/iniwex5/vohive/pkg/logger"
@@ -1248,13 +1247,15 @@ func (s *Server) handleVoWiFiSendSMS(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"status": "error", "message": "短信编码参数错误: " + err.Error()})
 		return
 	}
-	svc := s.pool.GetVoWiFiApp()
-	if svc == nil {
+	deviceID := s.pool.FirstVoWiFiDeviceID()
+	if deviceID == "" {
 		c.JSON(http.StatusServiceUnavailable, gin.H{"status": "error", "message": "IMS Core 未启动"})
 		return
 	}
 
-	outcome, err := svc.SendSMSWithOptions(c.Request.Context(), req.To, req.Text, messaging.SendOptions{Encoding: string(encoding)})
+	// Encoding (TPDU/RP-DATA construction) happens inside
+	// SendVoWiFiSMSWithOptions, not here -- see its doc comment.
+	outcome, err := s.pool.SendVoWiFiSMSWithOptions(c.Request.Context(), deviceID, req.To, req.Text, smscodec.SubmitOptions{Encoding: encoding})
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"status":         "error",

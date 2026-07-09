@@ -1,7 +1,9 @@
 package vowifihost
 
 import (
+	"context"
 	"strings"
+	"time"
 
 	"github.com/iniwex5/vohive/pkg/logger"
 	"github.com/iniwex5/vowifi-go/runtimehost"
@@ -60,6 +62,14 @@ func (m *Manager) ClaimStarted(deviceID string, epoch uint64, inst *runtimehost.
 			"startup_epoch", epoch,
 			"current_epoch", current)
 		return false
+	}
+	if old := m.RuntimeStore().Instance(deviceID); old != nil && old != inst {
+		stopCtx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+		_ = old.Stop(stopCtx)
+		cancel()
+		logger.Info("VoWiFi 新实例接管前已停止旧 pipeline",
+			"device", deviceID,
+			"startup_epoch", epoch)
 	}
 	return m.RuntimeStore().ClaimStarted(deviceID, epoch, inst)
 }

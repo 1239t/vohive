@@ -66,8 +66,14 @@ func (a *modemAdapter) TransmitAPDU(channel int, hexAPDU string) (string, error)
 	resp, err := a.m.TransmitAPDU(channel, hexAPDU)
 	return resp, normalizeVoWiFiAPDUError(err)
 }
+
+// GetISIMIdentity is not implemented -- see qmiModemAdapter.GetISIMIdentity's
+// doc comment (same reasoning, same fix: this used to call
+// identity.ReadISIMIdentity(a), which calls straight back into this same
+// method, an infinite recursion that crashes with a stack overflow on
+// first real use rather than ever actually reading anything).
 func (a *modemAdapter) GetISIMIdentity() (identity.Identity, error) {
-	return identity.ReadISIMIdentity(a)
+	return identity.Identity{}, fmt.Errorf("modem adapter: ISIM identity read not implemented")
 }
 func (a *modemAdapter) GetNetworkMode() string {
 	mode := a.m.GetFullStatus().NetworkMode

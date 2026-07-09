@@ -213,7 +213,7 @@ func (m *Manager) restartRuntime(ctx context.Context, deviceID string, generatio
 	}
 
 	logger.Info("准备重启 VoWiFi 隧道...", "device", deviceID)
-	if err := m.disableRuntime(ctx, deviceID, "restart", false, false); err != nil {
+	if err := m.disableRuntime(ctx, deviceID, "restart", true, false); err != nil {
 		logger.Warn("停用旧 VoWiFi 隧道时发生错误", "device", deviceID, "err", err)
 	}
 	if err := m.enableWhenReady(ctx, deviceID, lifecycleReadyTimeout, "restart", "", generation); err != nil {
